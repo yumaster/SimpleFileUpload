@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Web;
 using System.Web.Mvc;
 using WebApplication.Common;
@@ -13,6 +15,9 @@ namespace WebApplication.Controllers
     /// </summary>
     public class UploadController : Controller
     {
+        public static readonly string appId= "yozojqut3Leq7916";
+        public static readonly string appKey = "5f83670ada246fc8e0d15ef916f8";
+
         // GET: Upload
         public ActionResult Index()
         {
@@ -47,7 +52,7 @@ namespace WebApplication.Controllers
         }
 
         /// <summary>
-        /// 上传文件方法
+        /// 上传图片文件方法
         /// </summary>
         /// <param name="form">表单参数</param>
         /// <param name="file">文件</param>
@@ -86,6 +91,71 @@ namespace WebApplication.Controllers
                 });
             }
             catch (Exception)
+            {
+                //扔出异常
+                throw;
+            }
+        }
+
+
+        /// <summary>
+        /// 文件上传
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult FileUpload()
+        {
+            return View();
+        }
+        /// <summary>
+        /// 上传文件方法
+        /// </summary>
+        /// <param name="form"></param>
+        /// <param name="file"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult UploadFile(FormCollection form, HttpPostedFileBase file)
+        {
+            Dictionary<string, string[]> dic = new Dictionary<string, string[]>();
+            dic.Add("appId", new string[] { appId });
+            string sign = Signclient.generateSign(appKey, dic);
+
+            try
+            {
+                if (Request.Files.Count == 0)
+                {
+                    throw new Exception("请选择上传文件！");
+                }
+
+                Uri uri = new Uri("http://dmc.yozocloud.cn/api/file/upload?appId=" + appId + "&sign=" + sign + "");
+
+
+
+                using (HttpClient client = new HttpClient())
+                {
+                    var content = new MultipartFormDataContent();
+
+                    content.Headers.ContentType = MediaTypeHeaderValue.Parse("multipart/form-data");
+                    content.Headers.Add("Content-Disposition", "form-data");
+                    content.Headers.Add("name", "file");
+                    content.Headers.Add("filename", file.FileName);
+
+                    content.Add(new StreamContent(file.InputStream, (int)file.InputStream.Length), "file", file.FileName);
+
+                    var result = client.PostAsync(uri, content).Result.Content.ReadAsStringAsync().Result;
+
+                    Console.WriteLine(result);
+                }
+
+
+
+                return Json(new
+                {
+                    Status = 200,
+                    Message = "上传文件成功！",
+                    Data = ""
+                });
+            }
+            catch (Exception ex)
             {
                 //扔出异常
                 throw;

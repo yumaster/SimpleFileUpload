@@ -75,8 +75,9 @@ E:\vscode\master\SimpleFileUpload\WebApplication\bin\zh-Hans\System.Web.Webpages
 E:\vscode\master\SimpleFileUpload\WebApplication\bin\zh-Hans\System.Web.Webpages.Razor.resources.dll
 E:\vscode\master\SimpleFileUpload\WebApplication\bin\zh-Hans\System.Web.Helpers.resources.dll
 E:\vscode\master\SimpleFileUpload\WebApplication\bin\zh-Hans\System.Web.Mvc.resources.dll
-E:\vscode\master\SimpleFileUpload\WebApplication\obj\Debug\WebApplication.csprojAssemblyReference.cache
 E:\vscode\master\SimpleFileUpload\WebApplication\obj\Debug\WebApplication.csproj.CoreCompileInputs.cache
 E:\vscode\master\SimpleFileUpload\WebApplication\obj\Debug\WebApplication.csproj.CopyComplete
 E:\vscode\master\SimpleFileUpload\WebApplication\obj\Debug\WebApplication.dll
 E:\vscode\master\SimpleFileUpload\WebApplication\obj\Debug\WebApplication.pdb
+E:\vscode\master\SimpleFileUpload\WebApplication\bin\Newtonsoft.Json.dll
+E:\vscode\master\SimpleFileUpload\WebApplication\bin\Newtonsoft.Json.xml
