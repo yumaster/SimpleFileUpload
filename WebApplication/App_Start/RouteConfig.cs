@@ -12,6 +12,8 @@ namespace WebApplication
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            //启用路由特性映射
+            routes.MapMvcAttributeRoutes();
 
             routes.MapRoute(
                 name: "Default",

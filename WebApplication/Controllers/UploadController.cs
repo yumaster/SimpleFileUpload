@@ -16,7 +16,7 @@ namespace WebApplication.Controllers
     /// </summary>
     public class UploadController : Controller
     {
-        public static readonly string appId= "yozojqut3Leq7916";
+        public static readonly string appId = "yozojqut3Leq7916";
         public static readonly string appKey = "5f83670ada246fc8e0d15ef916f8";
 
         #region 图片上传
@@ -113,25 +113,6 @@ namespace WebApplication.Controllers
             return View();
         }
         /// <summary>
-        /// 在线编辑
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult FileEdit()
-        {
-            return View();
-        }
-        [HttpGet]
-        public ActionResult GetFileEdit(string fileversionId)
-        {
-            Dictionary<string, string[]> dic = new Dictionary<string, string[]>();
-            dic.Add("fileVersionId", new string[] { fileversionId });
-            dic.Add("appId", new string[] { appId });
-            string sign = Signclient.generateSign(appKey, dic);
-            string ret = "http://eic.yozocloud.cn/api/edit/file?fileVersionId=" + fileversionId + "&appId=" + appId + "&sign=" + sign + "";
-            return Redirect(ret);
-        }
-
-        /// <summary>
         /// 上传文件方法
         /// </summary>
         /// <param name="form"></param>
@@ -160,7 +141,7 @@ namespace WebApplication.Controllers
                     return Json(new
                     {
                         Status = response.StatusCode.GetHashCode(),
-                        Message = response.StatusCode.GetHashCode()==200? "上传文件成功！": "上传文件失败",
+                        Message = response.StatusCode.GetHashCode() == 200 ? "上传文件成功" : "上传文件失败",
                         Data = t.Result
                     });
                 }
@@ -172,5 +153,114 @@ namespace WebApplication.Controllers
             }
         }
         #endregion
+
+        #region 文件删除
+        [HttpGet]
+        public ActionResult FileDelete(string fileId)
+        {
+            Dictionary<string, string[]> dic = new Dictionary<string, string[]>();
+            dic.Add("fileId", new string[] { fileId });
+            dic.Add("appId", new string[] { appId });
+            string sign = Signclient.generateSign(appKey, dic);
+            using (HttpClient client = new HttpClient())
+            {
+                var requestUri = "http://dmc.yozocloud.cn/api/file/delete/file?fileId=" + fileId + "&appId=" + appId + "&sign=" + sign + "";
+                var response = client.GetAsync(requestUri).Result;
+                Task<string> t = response.Content.ReadAsStringAsync();
+                return Json(new
+                {
+                    Status = response.StatusCode.GetHashCode(),
+                    Message = response.StatusCode.GetHashCode() == 200 ? "删除文件成功" : "删除文件失败",
+                    Data = t.Result
+                });
+            }
+        }
+        [HttpGet]
+        public ActionResult FileVersionDelete(string fileVersionId)
+        {
+            Dictionary<string, string[]> dic = new Dictionary<string, string[]>();
+            dic.Add("fileVersionId", new string[] { fileVersionId });
+            dic.Add("appId", new string[] { appId });
+            string sign = Signclient.generateSign(appKey, dic);
+            using (HttpClient client = new HttpClient())
+            {
+                var requestUri = "http://dmc.yozocloud.cn/api/file/delete/file?fileVersionId=" + fileVersionId + "&appId=" + appId + "&sign=" + sign + "";
+                var response = client.GetAsync(requestUri).Result;
+                Task<string> t = response.Content.ReadAsStringAsync();
+                return Json(new
+                {
+                    Status = response.StatusCode.GetHashCode(),
+                    Message = response.StatusCode.GetHashCode() == 200 ? "删除文件版本成功" : "删除文件版本失败",
+                    Data = t.Result
+                });
+            }
+        }
+        #endregion
+
+        #region 新建文档
+        /// <summary>
+        /// 文档类型，文件名
+        /// </summary>
+        /// <param name="templateType"></param>
+        /// <param name="fileName"></param>
+        /// <returns></returns>
+        public ActionResult NewDoc(string templateType, string fileName)
+        {
+            Dictionary<string, string[]> dic = new Dictionary<string, string[]>();
+            dic.Add("templateType", new string[] { templateType });
+            dic.Add("fileName", new string[] { fileName });
+            dic.Add("appId", new string[] { appId });
+            string sign = Signclient.generateSign(appKey, dic);
+            using (HttpClient client = new HttpClient())
+            {
+                var requestUri = "http://dmc.yozocloud.cn/api/file/template?templateType=" + templateType + "&fileName=" + fileName + "&appId=" + appId + "&sign=" + sign + "";
+                var response = client.GetAsync(requestUri).Result;
+                Task<string> t = response.Content.ReadAsStringAsync();
+                return Json(new
+                {
+                    Status = response.StatusCode.GetHashCode(),
+                    Message = response.StatusCode.GetHashCode() == 200 ? "删除文件版本成功" : "删除文件版本失败",
+                    Data = t.Result
+                });
+            }
+        }
+        #endregion
+
+        /// <summary>
+        /// 在线编辑
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult FileEdit()
+        {
+            return View();
+        }
+        [HttpGet]
+        public ActionResult GetFileEdit(string fileversionId)
+        {
+            Dictionary<string, string[]> dic = new Dictionary<string, string[]>();
+            dic.Add("fileVersionId", new string[] { fileversionId });
+            dic.Add("appId", new string[] { appId });
+            string sign = Signclient.generateSign(appKey, dic);
+            string ret = "http://eic.yozocloud.cn/api/edit/file?fileVersionId=" + fileversionId + "&appId=" + appId + "&sign=" + sign + "";
+            return Redirect(ret);
+        }
+
+        [HttpPost]
+        [Route("3rd/edit/callBack")]
+        public ActionResult EditCallBack(string oldFileId, string newFileId, string message, int errorCode)
+        {
+
+            //记得先删除
+            //575018620908736513_0
+            //575018620908736513_0
+
+            return Json(new
+            {
+                oldFileId = oldFileId,
+                newFileId = newFileId,
+                message = message,
+                errorCode = errorCode
+            });
+        }
     }
 }
