@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using WebApplication.Common;
@@ -18,6 +19,7 @@ namespace WebApplication.Controllers
         public static readonly string appId= "yozojqut3Leq7916";
         public static readonly string appKey = "5f83670ada246fc8e0d15ef916f8";
 
+        #region 图片上传
         // GET: Upload
         public ActionResult Index()
         {
@@ -84,7 +86,8 @@ namespace WebApplication.Controllers
 
                 FileHelper.AddWaterText(imgAddress, "编码：30GAA02AA010$名称：#2澄清池润滑水进水阀$时间：" + DateTime.Now + "", imgAddress, 255, 14);
 
-                return Json(new {
+                return Json(new
+                {
                     Status = 200,
                     Message = "上传图片成功！",
                     Data = localPath
@@ -98,6 +101,9 @@ namespace WebApplication.Controllers
         }
 
 
+        #endregion
+
+        #region 文件上传
         /// <summary>
         /// 文件上传
         /// </summary>
@@ -106,6 +112,25 @@ namespace WebApplication.Controllers
         {
             return View();
         }
+        /// <summary>
+        /// 在线编辑
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult FileEdit()
+        {
+            return View();
+        }
+        [HttpGet]
+        public ActionResult GetFileEdit(string fileversionId)
+        {
+            Dictionary<string, string[]> dic = new Dictionary<string, string[]>();
+            dic.Add("fileVersionId", new string[] { fileversionId });
+            dic.Add("appId", new string[] { appId });
+            string sign = Signclient.generateSign(appKey, dic);
+            string ret = "http://eic.yozocloud.cn/api/edit/file?fileVersionId=" + fileversionId + "&appId=" + appId + "&sign=" + sign + "";
+            return Redirect(ret);
+        }
+
         /// <summary>
         /// 上传文件方法
         /// </summary>
@@ -118,42 +143,27 @@ namespace WebApplication.Controllers
             Dictionary<string, string[]> dic = new Dictionary<string, string[]>();
             dic.Add("appId", new string[] { appId });
             string sign = Signclient.generateSign(appKey, dic);
-
             try
             {
                 if (Request.Files.Count == 0)
                 {
                     throw new Exception("请选择上传文件！");
                 }
-
-                Uri uri = new Uri("http://dmc.yozocloud.cn/api/file/upload?appId=" + appId + "&sign=" + sign + "");
-
-
-
                 using (HttpClient client = new HttpClient())
                 {
-                    var content = new MultipartFormDataContent();
-
-                    content.Headers.ContentType = MediaTypeHeaderValue.Parse("multipart/form-data");
-                    content.Headers.Add("Content-Disposition", "form-data");
-                    content.Headers.Add("name", "file");
-                    content.Headers.Add("filename", file.FileName);
-
-                    content.Add(new StreamContent(file.InputStream, (int)file.InputStream.Length), "file", file.FileName);
-
-                    var result = client.PostAsync(uri, content).Result.Content.ReadAsStringAsync().Result;
-
-                    Console.WriteLine(result);
+                    var postContent = new MultipartFormDataContent();
+                    HttpContent fileStreamContent = new StreamContent(file.InputStream);
+                    postContent.Add(fileStreamContent, "file", file.FileName);
+                    var requestUri = "http://dmc.yozocloud.cn/api/file/upload?appId=" + appId + "&sign=" + sign + "";
+                    var response = client.PostAsync(requestUri, postContent).Result;
+                    Task<string> t = response.Content.ReadAsStringAsync();
+                    return Json(new
+                    {
+                        Status = response.StatusCode.GetHashCode(),
+                        Message = response.StatusCode.GetHashCode()==200? "上传文件成功！": "上传文件失败",
+                        Data = t.Result
+                    });
                 }
-
-
-
-                return Json(new
-                {
-                    Status = 200,
-                    Message = "上传文件成功！",
-                    Data = ""
-                });
             }
             catch (Exception ex)
             {
@@ -161,5 +171,6 @@ namespace WebApplication.Controllers
                 throw;
             }
         }
+        #endregion
     }
 }

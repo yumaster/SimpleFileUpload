@@ -81,3 +81,4 @@ E:\vscode\master\SimpleFileUpload\WebApplication\obj\Debug\WebApplication.dll
 E:\vscode\master\SimpleFileUpload\WebApplication\obj\Debug\WebApplication.pdb
 E:\vscode\master\SimpleFileUpload\WebApplication\bin\Newtonsoft.Json.dll
 E:\vscode\master\SimpleFileUpload\WebApplication\bin\Newtonsoft.Json.xml
+E:\vscode\master\SimpleFileUpload\WebApplication\obj\Debug\WebApplication.csprojAssemblyReference.cache

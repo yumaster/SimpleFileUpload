@@ -137,6 +137,7 @@
     <Content Include="vendors\webuploader-0.1.5\Uploader.swf" />
     <Content Include="vendors\webuploader-0.1.5\upload_simple.js" />
     <Content Include="vendors\webuploader-0.1.5\webuploader.css" />
+    <Content Include="vendors\webuploader-0.1.5\webuploader.js" />
     <Content Include="vendors\webuploader-0.1.5\webuploader.min.js" />
     <Content Include="vendors\webuploader-0.1.5\wrapUpload.js" />
     <Content Include="vendors\webuploader-0.1.5\_view_simple.html" />
@@ -151,9 +152,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="YozoHelper\HttpExtension.cs" />
-    <Compile Include="YozoHelper\HttpHelper.cs" />
-    <Compile Include="YozoHelper\JsonExtends.cs" />
     <Compile Include="YozoHelper\SignClient.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -184,6 +182,7 @@
     <Content Include="Views\Upload\ModalUpload.cshtml" />
     <Content Include="Views\Upload\SimpleUpload.cshtml" />
     <Content Include="Views\Upload\FileUpload.cshtml" />
+    <Content Include="Views\Upload\FileEdit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

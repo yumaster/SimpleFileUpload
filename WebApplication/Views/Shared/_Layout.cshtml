@@ -22,20 +22,31 @@
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
+            <div class="btn-group">
                 <a class="navbar-brand" href="/Upload/Index">首页</a>
-                <a class="navbar-brand" href="/Upload/Upload">直接上传</a>
-                <a class="navbar-brand" href="/Upload/SimpleUpload">简单上传</a>
-                <a class="navbar-brand" href="/Upload/ModalUpload">模态框上传</a>
-                <a class="navbar-brand" href="/Upload/FileUpload">文件上传</a>
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
+             
+            <!--单按钮下拉菜单-->
+            <div class="btn-group">
+                <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+                    图片上传
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a class="dropdown-item" href="/Upload/Upload">直接上传</a></li>
+                    <li><a class="dropdown-item" href="/Upload/SimpleUpload">简单上传</a></li>
+                    <li><a class="dropdown-item" href="/Upload/ModalUpload">模态框上传</a></li>
+                </ul>
+            </div>
+
+            <div class="btn-group">
+                <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+                    文档操作
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a class="dropdown-item" href="/Upload/FileUpload">本地文件上传</a></li>
+                    <li><a class="dropdown-item" href="/Upload/FileEdit">文件在线编辑</a></li>
                 </ul>
             </div>
         </div>
@@ -44,7 +55,7 @@
     <div class="container body-content">
         @RenderBody()
         <hr />
-        <footer>
+        <footer class="navbar-fixed-bottom">
             <p>&copy; @DateTime.Now.Year - <a href="http://yumaster.net">土伦</a></p>
         </footer>
     </div>

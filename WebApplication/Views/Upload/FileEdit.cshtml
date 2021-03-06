@@ -1,0 +1,14 @@
+﻿@{
+    ViewBag.Title = "在线编辑";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!--简单模块-->
+<div class="container form-horizontal">
+    <form action="~/Upload/GetFileEdit" method="get">
+        <div class="row form-group">
+            文件版本id:<input type="text" name="fileversionId" />
+            <input type="submit" value="测试"/>
+        </div>
+    </form>
+</div>

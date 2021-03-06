@@ -36,7 +36,7 @@ function _init_FileUpload(_requestUrl) {
         var $li = $(
             '<div id="' + file.id + '" class="">' +
             //'<img>' +
-            '<div class="info">' + file.name + '</div>' +
+            '<div id="'+file.id+'Info" class="info">' + file.name + '</div>' +
             '</div>'
         );
         // $list为容器jQuery实例
@@ -58,8 +58,9 @@ function _init_FileUpload(_requestUrl) {
     });
 
     // 文件上传成功，给item添加成功class, 用样式标记上传成功。
-    simple_upload.on('uploadSuccess', function (file) {
+    simple_upload.on('uploadSuccess', function (file, data) {
         $('#' + file.id).addClass('upload-state-done');
+        $('#' + file.id + 'Info').html(data.Data);
     });
 
     // 文件上传失败，显示上传出错。
@@ -76,7 +77,7 @@ function _init_FileUpload(_requestUrl) {
     });
 
     // 完成上传完了，成功或者失败，先删除进度条。
-    simple_upload.on('uploadComplete', function (file) {
+    simple_upload.on('uploadComplete', function (file, data) {
         $('#' + file.id).find('.progress').remove();
     });
 }

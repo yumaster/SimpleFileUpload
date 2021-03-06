@@ -596,6 +596,7 @@ function _init_upload(func, _requestUrl)
 
         //Add by wys,绑定上传成功事件
         uploader.on("uploadSuccess", function (file, response) {
+            debugger
             if (typeof (func) != 'undefined' && func != null) {
                 func(response);
             }

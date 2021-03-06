@@ -7,6 +7,9 @@
  * @param listSelector 上传列表选择器，  如：#fcz_fileList
  * @param serverUrl 图片服务器地址
 */
+
+import { debug } from "console";
+
 /** 租房图片上传插件
  * @author wangyushuai
  * @param pickerSelector 上传按钮选择器， 如：#fcz_uplaoder
@@ -74,6 +77,7 @@ function _init_simpleUpload(pickerSelector, listSelector, serverUrl) {
 
     //event: 文件上传成功，给item添加成功class, 用样式标记上传成功。
     simple_upload.on('uploadSuccess', function (file, data) {
+        debugger
         simple_upload._addFile(file);
         console.log(data);//打印上传返回的地址
         //$(pickerSelector).hide();//隐藏上传按钮
