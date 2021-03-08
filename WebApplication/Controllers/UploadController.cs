@@ -17,7 +17,7 @@ namespace WebApplication.Controllers
     public class UploadController : Controller
     {
         public static readonly string appId = "yozojqut3Leq7916";
-        public static readonly string appKey = "5f83670ada246fc8e0d15ef916f8";
+        public static readonly string appKey = "5f83670ada246fc8e0d15ef9****";
 
         #region 图片上传
         // GET: Upload
@@ -155,6 +155,25 @@ namespace WebApplication.Controllers
         #endregion
 
         #region 文件删除
+
+        /// <summary>
+        /// 删除文件
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult DelFile()
+        {
+            return View();
+        }
+        /// <summary>
+        /// 删除文件版本
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult DelFileVersion()
+        {
+            return View();
+        }
+
+
         [HttpGet]
         public ActionResult FileDelete(string fileId)
         {
@@ -170,9 +189,9 @@ namespace WebApplication.Controllers
                 return Json(new
                 {
                     Status = response.StatusCode.GetHashCode(),
-                    Message = response.StatusCode.GetHashCode() == 200 ? "删除文件成功" : "删除文件失败",
+                    Message = response.StatusCode.GetHashCode() == 200 ? "请求成功" : "请求失败",
                     Data = t.Result
-                });
+                },JsonRequestBehavior.AllowGet);
             }
         }
         [HttpGet]
@@ -184,15 +203,15 @@ namespace WebApplication.Controllers
             string sign = Signclient.generateSign(appKey, dic);
             using (HttpClient client = new HttpClient())
             {
-                var requestUri = "http://dmc.yozocloud.cn/api/file/delete/file?fileVersionId=" + fileVersionId + "&appId=" + appId + "&sign=" + sign + "";
+                var requestUri = "http://dmc.yozocloud.cn/api/file/delete/version?fileVersionId=" + fileVersionId + "&appId=" + appId + "&sign=" + sign + "";
                 var response = client.GetAsync(requestUri).Result;
                 Task<string> t = response.Content.ReadAsStringAsync();
                 return Json(new
                 {
                     Status = response.StatusCode.GetHashCode(),
-                    Message = response.StatusCode.GetHashCode() == 200 ? "删除文件版本成功" : "删除文件版本失败",
+                    Message = response.StatusCode.GetHashCode() == 200 ? "请求成功" : "请求失败",
                     Data = t.Result
-                });
+                }, JsonRequestBehavior.AllowGet);
             }
         }
         #endregion
@@ -250,9 +269,10 @@ namespace WebApplication.Controllers
         public ActionResult EditCallBack(string oldFileId, string newFileId, string message, int errorCode)
         {
 
-            //记得先删除
-            //575018620908736513_0
-            //575018620908736513_0
+            //文件ID
+            //575716913322135553
+            //文件版本 依次累加 0 1 2 3 4
+            //575716913322135553_0 、 7
 
             return Json(new
             {

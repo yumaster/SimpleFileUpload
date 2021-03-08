@@ -1,17 +1,17 @@
 ﻿@{
-    ViewBag.Title = "在线编辑";
+    ViewBag.Title = "删除文件版本";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <!--简单模块-->
 <div class="container form-horizontal">
-    <form action="~/Upload/GetFileEdit" method="get">
+    <form action="~/Upload/FileVersionDelete" method="get">
         <div class="row form-group">
             <label class="control-label  col-lg-3 col-md-3">文件版本id</label>
             <div class="col-lg-5 col-md-6">
-                <input  type="text"  class="form-control" name="fileversionId" id="fileversionId" style="max-width:100%;" />
+                <input type="text" class="form-control" name="fileVersionId" id="fileVersionId" style="max-width:100%;" />
             </div>
-            <input type="submit" value="测试" />
+            <input type="submit" value="删除文件版本" />
         </div>
     </form>
 </div>

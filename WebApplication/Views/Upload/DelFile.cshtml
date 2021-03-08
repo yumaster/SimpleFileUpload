@@ -1,0 +1,17 @@
+﻿@{
+    ViewBag.Title = "删除文件";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!--简单模块-->
+<div class="container form-horizontal">
+    <form action="~/Upload/FileDelete" method="get">
+        <div class="row form-group">
+            <label class="control-label  col-lg-3 col-md-3">文件id</label>
+            <div class="col-lg-5 col-md-6">
+                <input type="text" class="form-control" name="fileId" id="fileId" style="max-width:100%;" />
+            </div>
+            <input type="submit" value="删除文件" />
+        </div>
+    </form>
+</div>

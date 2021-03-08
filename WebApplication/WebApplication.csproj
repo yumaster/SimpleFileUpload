@@ -16,7 +16,7 @@
     <RootNamespace>WebApplication</RootNamespace>
     <AssemblyName>WebApplication</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -183,6 +183,8 @@
     <Content Include="Views\Upload\SimpleUpload.cshtml" />
     <Content Include="Views\Upload\FileUpload.cshtml" />
     <Content Include="Views\Upload\FileEdit.cshtml" />
+    <Content Include="Views\Upload\DelFile.cshtml" />
+    <Content Include="Views\Upload\DelFileVersion.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -210,7 +212,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>21355</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:21355/</IISUrl>
+          <IISUrl>http://localhost/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
