@@ -54,7 +54,7 @@ namespace WebApplication.Controllers
         }
 
         /// <summary>
-        /// 上传图片文件方法
+        /// 上传图片文件方法，带水印
         /// </summary>
         /// <param name="form">表单参数</param>
         /// <param name="file">文件</param>
@@ -173,7 +173,6 @@ namespace WebApplication.Controllers
             return View();
         }
 
-
         [HttpGet]
         public ActionResult FileDelete(string fileId)
         {
@@ -268,12 +267,10 @@ namespace WebApplication.Controllers
         [Route("3rd/edit/callBack")]
         public ActionResult EditCallBack(string oldFileId, string newFileId, string message, int errorCode)
         {
-
             //文件ID
             //575716913322135553
             //文件版本 依次累加 0 1 2 3 4
             //575716913322135553_0 、 7
-
             return Json(new
             {
                 oldFileId = oldFileId,
