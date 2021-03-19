@@ -66,16 +66,12 @@ namespace WebApplication.Controllers
             {
                 string filePathName = string.Empty;
                 string localPath = string.Empty;
-
                 localPath = Path.Combine(HttpRuntime.AppDomainAppPath, "Upload/Images/");
-
                 if (Request.Files.Count == 0)
                 {
                     throw new Exception("请选择上传文件！");
                 }
-
                 string ex = Path.GetExtension(file.FileName);
-
                 filePathName = Guid.NewGuid().ToString("N") + ex;
                 if (!System.IO.Directory.Exists(localPath))
                 {
